@@ -9,3 +9,41 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+  nickname String
+  email String
+  password String
+  isAdmin Boolean
+  articles Articles[] @relation("User Articles")
+  comments Comments[] @relation("User comments")
+
+}
+
+model Articles {
+  id String @id @default(uuid())
+  title String
+  articletype String?
+  clickbait String
+  body String
+  author User @relation("User Articles", fields: [authorId], references: [id])
+  authorId String
+  comments Comments[] @relation("Article Comment")
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model Comments {
+  id String @id @default(uuid())
+  body String
+  user User @relation("User comments", fields: [userId], references: [id] )
+  userId String
+  article Articles @relation("Article Comment", fields: [articleId], references: [id])
+  articleId String
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
