@@ -19,7 +19,7 @@ model User {
   password String
   isAdmin Boolean
   articles Articles[] @relation("User Articles")
-  comments Comments[] @relation("User comments")
+  comments Comments[] @relation("User Comments")
 
 }
 
@@ -31,7 +31,7 @@ model Articles {
   body String
   author User @relation("User Articles", fields: [authorId], references: [id])
   authorId String
-  comments Comments[] @relation("Article Comment")
+  comments Comments[] @relation("Article Comments")
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
 }
@@ -39,9 +39,9 @@ model Articles {
 model Comments {
   id String @id @default(uuid())
   body String
-  user User @relation("User comments", fields: [userId], references: [id] )
+  user User @relation("User Comments", fields: [userId], references: [id] )
   userId String
-  article Articles @relation("Article Comment", fields: [articleId], references: [id])
+  article Articles @relation("Article Comments", fields: [articleId], references: [id])
   articleId String
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
