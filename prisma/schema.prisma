@@ -15,15 +15,16 @@ model User {
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
   nickname String
-  email String
-  password String
-  isAdmin Boolean
-  articles Articles[] @relation("User Articles")
-  comments Comments[] @relation("User Comments")
+  email String @unique
+  hash String
+  articles Article[] @relation("User Articles")
+  comments Comment[] @relation("User Comments")
+
+  @@map("users")
 
 }
 
-model Articles {
+model Article {
   id String @id @default(uuid())
   title String
   articletype String?
@@ -31,19 +32,23 @@ model Articles {
   body String
   author User @relation("User Articles", fields: [authorId], references: [id])
   authorId String
-  comments Comments[] @relation("Article Comments")
+  comments Comment[] @relation("Article Comments")
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
+
+  @@map("articles")
 }
 
-model Comments {
+model Comment {
   id String @id @default(uuid())
   body String
   user User @relation("User Comments", fields: [userId], references: [id] )
   userId String
-  article Articles @relation("Article Comments", fields: [articleId], references: [id])
+  article Article @relation("Article Comments", fields: [articleId], references: [id])
   articleId String
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
+
+  @@map("comments")
 }
 

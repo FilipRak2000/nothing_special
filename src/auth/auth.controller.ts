@@ -12,7 +12,13 @@ constructor(private authService: AuthService ){}
     @Post('signup')
     signup(@Body() dto: AuthDto){
         console.log({dto})
-    return this.authService.login();
+    return this.authService.singup(dto);
+    }
+
+    @Post('signin')
+    signin(@Body() dto:AuthDto){
+        console.log("okay")
+        return this.authService.signin(dto);
     }
 
 }
