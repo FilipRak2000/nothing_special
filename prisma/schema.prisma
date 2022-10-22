@@ -10,45 +10,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
 model User {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updateAt DateTime @updatedAt
-  nickname String
   email String @unique
   hash String
-  articles Article[] @relation("User Articles")
-  comments Comment[] @relation("User Comments")
+  isAdmin Boolean  @default(false)
+  cart Cart[] @relation("User Cart")
 
   @@map("users")
 
 }
 
-model Article {
+model Products {
   id String @id @default(uuid())
   title String
-  articletype String?
-  clickbait String
-  body String
-  author User @relation("User Articles", fields: [authorId], references: [id])
-  authorId String
-  comments Comment[] @relation("Article Comments")
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-
-  @@map("articles")
+  description String
+  img String
+  category Categories @relation(fields: [categoryId], references: [id])
+  categoryId String
+  size String
+  color String
+  price Int
+  cart Cart[] @relation("Cart Products")
+  
 }
 
-model Comment {
+model Categories {
   id String @id @default(uuid())
-  body String
-  user User @relation("User Comments", fields: [userId], references: [id] )
-  userId String
-  article Article @relation("Article Comments", fields: [articleId], references: [id])
-  articleId String
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  name String
+  product Products[] 
 
-  @@map("comments")
 }
 
+model Cart{
+   id String @id @default(uuid())
+   user User @relation("User Cart", fields: [userId], references: [id])
+   userId String
+   products Products @relation("Cart Products" , fields: [productId], references: [id])
+   productId String
+ 
+}
