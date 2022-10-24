@@ -2,7 +2,7 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto';
 
-const result:number = 2
+
 
 
 @Controller('auth')
@@ -18,11 +18,7 @@ constructor(private authService: AuthService ){}
     signin(@Body() dto:AuthDto){
         return this.authService.signin(dto);
     };
-    @Post('test')
-    test(){
-        if(1+1 == 2){
-            return "hello";
-        }
-    }
+   
+    
 
 }

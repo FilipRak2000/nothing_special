@@ -1,7 +1,8 @@
 FROM node:16
 
 
-# Create app directory
+RUN npm install -g nodemon 
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./

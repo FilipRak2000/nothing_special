@@ -18,7 +18,7 @@ model User {
   updateAt DateTime @updatedAt
   email String @unique
   hash String
-  isAdmin Boolean  @default(false)
+   role      Role     @default(USER)
   cart Cart[] @relation("User Cart")
 
   @@map("users")
@@ -52,5 +52,12 @@ model Cart{
    userId String
    products Products @relation("Cart Products" , fields: [productId], references: [id])
    productId String
+  amount        Int      @default(1)
+  totalPrice    Decimal
  
+}
+
+enum Role {
+  USER
+  ADMIN
 }

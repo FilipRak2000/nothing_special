@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -5,7 +8,7 @@ CREATE TABLE "users" (
     "updateAt" TIMESTAMP(3) NOT NULL,
     "email" TEXT NOT NULL,
     "hash" TEXT NOT NULL,
-    "isAdmin" BOOLEAN NOT NULL DEFAULT false,
+    "role" "Role" NOT NULL DEFAULT 'USER',
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -37,6 +40,8 @@ CREATE TABLE "Cart" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
+    "amount" INTEGER NOT NULL DEFAULT 1,
+    "totalPrice" DECIMAL(65,30) NOT NULL,
 
     CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
 );
