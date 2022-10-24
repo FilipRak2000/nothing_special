@@ -41,7 +41,7 @@ model Products {
 
 model Categories {
   id String @id @default(uuid())
-  name String
+  name String @unique
   product Products[] 
 
 }
