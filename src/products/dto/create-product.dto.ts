@@ -1,13 +1,12 @@
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+export class CreateProductDto {
 
-export class CreateProductDto{
+    title:String
 
-    @IsEmail()
-    @IsNotEmpty()
-    email: string;
+    description:String
 
-    @IsString()
-    @IsNotEmpty()
-    password: string;
-
+    img: String
+    category: String[]
+    size:String
+    color:String
+    price:Number
 }
